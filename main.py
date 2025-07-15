@@ -31,42 +31,14 @@ while option != "0":
             while continue_input == "s":
                 print(Fore.CYAN + Style.BRIGHT + "Agregar un producto")
                 try:
-                    productName = str(input("Ingrese el nombre del producto: "))
-                    productDescription = str(input("Ingrese la descripción del producto: "))
-                    productCant = str(input("Ingrese la cantidad del producto (número entero): "))
-                    productPrice = input("Ingrese el precio del producto (número decimal positivo:): ")
-                    productCategory = str(input("Ingrese la categoria del producto: "))
-
-                    if productName != "":
-                        productName = productName.strip()
-                    if productDescription != "":
-                        productDescription = productDescription.strip()
-                    if productCant != "":
-                        productCant = productCant
-                    if productPrice != "":
-                        productPrice = float(productPrice)
-                    if productCategory != "":
-                        productCategory = productCategory.strip()
-                    if productName == "":
-                        raise ValueError("El nombre no puede estar vacío.")
-                    if productCategory == "":
-                        raise ValueError("La categoría no puede estar vacía.")
-                    if not productCant.isnumeric():
-                        raise ValueError("La cantidad debe ser un número entero positivo.")
-                    else:
-                        cantidad = int(productCant)
-                    if not isinstance(productPrice, float):
-                        raise ValueError("El precio debe ser un float entero positivo.")
-                    else:
-                        precio = float(productPrice)
-
-                    products.add_product(productName, productDescription, cantidad, precio, productCategory)
+                    valitated_data = products.validate_product()
+                    products.add_product(valitated_data[0], valitated_data[1], valitated_data[2], valitated_data[3], valitated_data[4])
+                    print("Se agregó el producto.")
                 except ValueError as e:
-                    print(Fore.RED, e, "Intente de nuevo. \n")
-                finally:
-                    continue_input = input("¿Desea agregar otro producto? (s/n): ").lower()
-                    if continue_input != "s":
-                        continue_input = "n"
+                    print(e, "Intente de nuevo. \n")
+                continue_input = input("¿Desea agregar otro producto? (s/n): ").lower()
+                if continue_input != "s":
+                    continue_input = "n"
 
             input("Presione Enter para continuar...")
             os.system('cls||clear')
@@ -76,14 +48,7 @@ while option != "0":
             arr_products = products.show_products()
             for product in arr_products:
                 print(Fore.GREEN + Style.BRIGHT)
-                print(f" \
-                    Producto #{product['id']}: \n \
-                    - Nombre: {product['nombre']}\n \
-                    - Descripción: {product['descripcion']}\n \
-                    - Cantidad: {product['cantidad']}\n \
-                    - Precio: {product['precio']} \n \
-                    - Categoría: {product['categoria']} \
-                ")
+                products.show_product(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                 print(Back.BLACK + Fore.MAGENTA + "#######################")
             if not arr_products:
                 print("No hay productos para mostrar.")
@@ -103,97 +68,21 @@ while option != "0":
                 print(len(arr_product))
                 if len(arr_product) > 0:
                     for product in arr_product:
-                        print(f" \
-                                Producto #{product['id']}: \n \
-                                - Nombre: {product['nombre']}\n \
-                                - Descripción: {product['descripcion']}\n \
-                                - Cantidad: {product['cantidad']}\n \
-                                - Precio: {product['precio']} \n \
-                                - Categoría: {product['categoria']} \
-                        ")
+                        products.show_product(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                     continue_input = input("¿Desea modificar uno de los productos? (s/n): ").lower()
                     if continue_input == "s":
                         try:
-                            productID = input("Ingrese el ID del producto: ")
-                            productName = str(input("Ingrese el nombre del producto: "))
-                            productDescription = str(input("Ingrese la descripción del producto: "))
-                            productCant = str(input("Ingrese la cantidad del producto (número entero): "))
-                            productPrice = input("Ingrese el precio del producto (número decimal positivo:): ")
-                            productCategory = str(input("Ingrese la categoria del producto: "))
-
-                            if productID != "":
-                                productID = int(productID)
-                            if productName != "":
-                                productName = productName.strip()
-                            if productDescription != "":
-                                productDescription = productDescription.strip()
-                            if productCant != "":
-                                productCant = productCant
-                            if productPrice != "":
-                                productPrice = float(productPrice)
-                            if productCategory != "":
-                                productCategory = productCategory.strip()
-
-                            if productName == "":
-                                raise ValueError("El nombre no puede estar vacío.")
-                            if productCategory == "":
-                                raise ValueError("La categoría no puede estar vacía.")
-                            if not productCant.isnumeric():
-                                raise ValueError("La cantidad debe ser un número entero positivo.")
-                            else:
-                                cantidad = int(productCant)
-                            if not isinstance(productPrice, float):
-                                raise ValueError("El precio debe ser un float entero positivo.")
-                            else:
-                                precio = float(productPrice)
-
-                            products.mod_product(productID, productName, productDescription, cantidad,
-                                                 precio, productCategory)
+                            valitated_data = (products.validate_product(True))
+                            products.mod_product(valitated_data[0], valitated_data[1], valitated_data[2], valitated_data[3], valitated_data[4], valitated_data[5])
                         except ValueError as e:
                             print(Fore.RED, e, "Intente de nuevo. \n")
                 else:
-                    print(f" \
-                       Producto #{arr_product['id']}: \n \
-                       - Nombre: {arr_product['nombre']}\n \
-                       - Descripción: {arr_product['descripcion']}\n \
-                       - Cantidad: {arr_product['cantidad']}\n \
-                       - Precio: {arr_product['precio']} \n \
-                       - Categoría: {arr_product['categoria']} \
-                   ")
+                    products.show_product(arr_product['nombre'], arr_product['descripcion'], arr_product['cantidad'], arr_product['precio'], arr_product['categoria'], arr_product['id'])
                     continue_input = input("¿Desea modificar el producto? (s/n): ").lower()
                     if continue_input == "s":
                         try:
-                            productName = str(input("Ingrese el nombre del producto: "))
-                            productDescription = str(input("Ingrese la descripción del producto: "))
-                            productCant = str(input("Ingrese la cantidad del producto (número entero): "))
-                            productPrice = input("Ingrese el precio del producto (número decimal positivo:): ")
-                            productCategory = str(input("Ingrese la categoria del producto: "))
-
-                            if productName != "":
-                                productName = productName.strip()
-                            if productDescription != "":
-                                productDescription = productDescription.strip()
-                            if productCant != "":
-                                productCant = productCant
-                            if productPrice != "":
-                                productPrice = float(productPrice)
-                            if productCategory != "":
-                                productCategory = productCategory.strip()
-
-                            if productName == "":
-                                raise ValueError("El nombre no puede estar vacío.")
-                            if productCategory == "":
-                                raise ValueError("La categoría no puede estar vacía.")
-                            if not productCant.isnumeric():
-                                raise ValueError("La cantidad debe ser un número entero positivo.")
-                            else:
-                                cantidad = int(productCant)
-                            if not isinstance(productPrice, float):
-                                raise ValueError("El precio debe ser un float entero positivo.")
-                            else:
-                                precio = float(productPrice)
-
-                            products.mod_product(arr_product['id'], productName, productDescription, cantidad, precio, productCategory)
+                            valitated_data = (products.validate_product(True))
+                            products.mod_product(valitated_data[0], valitated_data[1], valitated_data[2], valitated_data[3], valitated_data[4], valitated_data[5])
                         except ValueError as e:
                             print(Fore.RED, e, "Intente de nuevo. \n")
             else:
@@ -204,7 +93,7 @@ while option != "0":
         case "4":
             print(Fore.CYAN + Style.BRIGHT + "Eliminar un producto")
 
-            productID = str(input("Ingrese el ID del producto: "))
+            productID = input("Ingrese el ID del producto: ")
             if productID != "":
                 productID = int(productID)
 
@@ -221,14 +110,7 @@ while option != "0":
             arr_products = products.report_products(product_minCant)
             for product in arr_products:
                 print(Fore.GREEN + Style.BRIGHT)
-                print(f" \
-                    Producto #{product['id']}: \n \
-                    - Nombre: {product['nombre']}\n \
-                    - Descripción: {product['descripcion']}\n \
-                    - Cantidad: {product['cantidad']}\n \
-                    - Precio: {product['precio']} \n \
-                    - Categoría: {product['categoria']} \
-                ")
+                products.show_product(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                 print(Back.BLACK + Fore.MAGENTA + "#######################")
             if not arr_products:
                 print("No hay productos para mostrar.")
