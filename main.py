@@ -47,7 +47,6 @@ while option != "0":
                         productPrice = float(productPrice)
                     if productCategory != "":
                         productCategory = productCategory.strip()
-
                     if productName == "":
                         raise ValueError("El nombre no puede estar vacío.")
                     if productCategory == "":
@@ -68,8 +67,8 @@ while option != "0":
                     continue_input = input("¿Desea agregar otro producto? (s/n): ").lower()
                     if continue_input != "s":
                         continue_input = "n"
-                        input("Presione Enter para continuar...")
 
+            input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "2":
             print(Fore.CYAN + Style.BRIGHT + "Mostrar productos")
@@ -88,6 +87,7 @@ while option != "0":
                 print(Back.BLACK + Fore.MAGENTA + "#######################")
             if not arr_products:
                 print("No hay productos para mostrar.")
+
             input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "3":
@@ -200,6 +200,7 @@ while option != "0":
                 print(Fore.RED, "No se encontraron productos. Intente de nuevo. \n")
 
             input("Presione Enter para continuar...")
+            os.system('cls||clear')
         case "4":
             print(Fore.CYAN + Style.BRIGHT + "Eliminar un producto")
 
@@ -208,6 +209,8 @@ while option != "0":
                 productID = int(productID)
 
             arr_product = products.remove_product(productID)
+            input("Presione Enter para continuar...")
+            os.system('cls||clear')
         case "5":
             print(Fore.CYAN + Style.BRIGHT + "Reporte de productos")
 
@@ -219,16 +222,17 @@ while option != "0":
             for product in arr_products:
                 print(Fore.GREEN + Style.BRIGHT)
                 print(f" \
-                                    Producto #{product['id']}: \n \
-                                    - Nombre: {product['nombre']}\n \
-                                    - Descripción: {product['descripcion']}\n \
-                                    - Cantidad: {product['cantidad']}\n \
-                                    - Precio: {product['precio']} \n \
-                                    - Categoría: {product['categoria']} \
-                                ")
+                    Producto #{product['id']}: \n \
+                    - Nombre: {product['nombre']}\n \
+                    - Descripción: {product['descripcion']}\n \
+                    - Cantidad: {product['cantidad']}\n \
+                    - Precio: {product['precio']} \n \
+                    - Categoría: {product['categoria']} \
+                ")
                 print(Back.BLACK + Fore.MAGENTA + "#######################")
             if not arr_products:
                 print("No hay productos para mostrar.")
+
             input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "0":

@@ -72,16 +72,11 @@ def show_product(product_findKey):
         if product_findKey.isnumeric():
             product_findKey = int(product_findKey)
             cursor.execute("SELECT * FROM productos WHERE id = ?", (product_findKey,))
-            # fila = cursor.fetchall()
-            # producto = dict(fila) if fila else []
-            rows = cursor.fetchall()
-            producto = [dict(row) for row in rows]
-
         else:
             product_findKey = f"%{product_findKey}%"
             cursor.execute("SELECT * FROM productos WHERE nombre LIKE ? OR categoria LIKE ?", (product_findKey, product_findKey))
-            rows = cursor.fetchall()
-            producto = [dict(row) for row in rows]
+        rows = cursor.fetchall()
+        producto = [dict(row) for row in rows]
 
         return producto
 
