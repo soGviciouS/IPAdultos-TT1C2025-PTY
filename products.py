@@ -291,11 +291,10 @@ def validate_product(arg_id=None):
     except ValueError as e:
         print(e, "Intente de nuevo. \n")
 
-def show_product(arg_nombre, arg_descripcion, arg_cantidad, arg_precio, arg_categoria, arg_id=None):
+def show_product_screen(arg_nombre, arg_descripcion, arg_cantidad, arg_precio, arg_categoria, arg_id=None):
 
     """
-        If arg_id is not None, it will return the productID, productName, productDescription, productCant, productPrice, productCategory.
-            else, it will return the productName, productDescription, productCant, productPrice, productCategory, productID.
+        Muestra los productos en pantalla.
 
         :param arg_nombre:
         :param arg_descripcion:

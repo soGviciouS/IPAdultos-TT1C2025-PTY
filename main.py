@@ -48,7 +48,7 @@ while option != "0":
             arr_products = products.show_products()
             for product in arr_products:
                 print(Fore.GREEN + Style.BRIGHT)
-                products.show_product(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
+                products.show_product_screen(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                 print(Back.BLACK + Fore.MAGENTA + "#######################")
             if not arr_products:
                 print("No hay productos para mostrar.")
@@ -68,7 +68,7 @@ while option != "0":
                 print(len(arr_product))
                 if len(arr_product) > 0:
                     for product in arr_product:
-                        products.show_product(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
+                        products.show_product_screen(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                     continue_input = input("¿Desea modificar uno de los productos? (s/n): ").lower()
                     if continue_input == "s":
                         try:
@@ -77,7 +77,7 @@ while option != "0":
                         except ValueError as e:
                             print(Fore.RED, e, "Intente de nuevo. \n")
                 else:
-                    products.show_product(arr_product['nombre'], arr_product['descripcion'], arr_product['cantidad'], arr_product['precio'], arr_product['categoria'], arr_product['id'])
+                    products.show_product_screen(arr_product['nombre'], arr_product['descripcion'], arr_product['cantidad'], arr_product['precio'], arr_product['categoria'], arr_product['id'])
                     continue_input = input("¿Desea modificar el producto? (s/n): ").lower()
                     if continue_input == "s":
                         try:
@@ -110,7 +110,7 @@ while option != "0":
             arr_products = products.report_products(product_minCant)
             for product in arr_products:
                 print(Fore.GREEN + Style.BRIGHT)
-                products.show_product(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
+                products.show_product_screen(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                 print(Back.BLACK + Fore.MAGENTA + "#######################")
             if not arr_products:
                 print("No hay productos para mostrar.")
