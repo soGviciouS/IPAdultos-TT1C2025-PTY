@@ -80,8 +80,7 @@ def show_product(product_findKey):
         conn.row_factory = sqlite3.Row  # Habilita acceso a columnas por nombre
         cursor = conn.cursor()
         if product_findKey.isnumeric():
-            product_findKey = int(product_findKey)
-            cursor.execute("SELECT * FROM productos WHERE id = ?", (product_findKey,))
+            cursor.execute("SELECT * FROM productos WHERE id = ?", product_findKey)
         else:
             product_findKey = f"%{product_findKey}%"
             cursor.execute("SELECT * FROM productos WHERE nombre LIKE ? OR categoria LIKE ?", (product_findKey, product_findKey))
@@ -249,47 +248,49 @@ def validate_product(arg_id=None):
 
     :rtype: tuple
     """
-
-    if arg_id is not None:
-        productID = input("Ingrese el ID del producto: ")
-    productName = input("Ingrese el nombre del producto: ")
-    productDescription = input("Ingrese la descripción del producto: ")
-    productCant = input("Ingrese la cantidad del producto (número entero): ")
-    productPrice = input("Ingrese el precio del producto (número decimal positivo:): ")
-    productCategory = input("Ingrese la categoria del producto: ")
-
-    try:
+    continue_input = True
+    while continue_input:
         if arg_id is not None:
-            if not productID.isnumeric():
-                raise ValueError("La ID debe ser un número entero positivo.")
+            productID = input("Ingrese el ID del producto: ")
+        productName = input("Ingrese el nombre del producto: ")
+        productDescription = input("Ingrese la descripción del producto: ")
+        productCant = input("Ingrese la cantidad del producto (número entero): ")
+        productPrice = input("Ingrese el precio del producto (número decimal positivo:): ")
+        productCategory = input("Ingrese la categoria del producto: ")
+
+        try:
+            if arg_id is not None:
+                if not productID.isnumeric():
+                    raise ValueError("La ID debe ser un número entero positivo.")
+                else:
+                    productID = int(productID)
+            if productName != "":
+                productName = productName.strip()
+            if productDescription != "":
+                productDescription = productDescription.strip()
+            if productCant != "":
+                productCant = productCant
+            if productPrice != "":
+                productPrice = float(productPrice)
+            if productCategory != "":
+                productCategory = productCategory.strip()
+            if productName == "":
+                raise ValueError("El nombre no puede estar vacío.")
+            if productCategory == "":
+                raise ValueError("La categoría no puede estar vacía.")
+            if not productCant.isnumeric():
+                raise ValueError("La cantidad debe ser un número entero positivo.")
             else:
-                productID = int(productID)
-        if productName != "":
-            productName = productName.strip()
-        if productDescription != "":
-            productDescription = productDescription.strip()
-        if productCant != "":
-            productCant = productCant
-        if productPrice != "":
-            productPrice = float(productPrice)
-        if productCategory != "":
-            productCategory = productCategory.strip()
-        if productName == "":
-            raise ValueError("El nombre no puede estar vacío.")
-        if productCategory == "":
-            raise ValueError("La categoría no puede estar vacía.")
-        if not productCant.isnumeric():
-            raise ValueError("La cantidad debe ser un número entero positivo.")
-        else:
-            productCant = int(productCant)
+                productCant = int(productCant)
 
-        if arg_id is not None:
-            return productName, productDescription, productCant, productPrice, productCategory, productID
-        else:
-            return productName, productDescription, productCant, productPrice, productCategory
+            if arg_id is not None:
+                return productName, productDescription, productCant, productPrice, productCategory, productID
+            else:
+                return productName, productDescription, productCant, productPrice, productCategory
 
-    except ValueError as e:
-        print(e, "Intente de nuevo. \n")
+        except ValueError as e:
+            print(e, "Intente de nuevo. \n")
+            continue_input = False
 
 def show_product_screen(arg_nombre, arg_descripcion, arg_cantidad, arg_precio, arg_categoria, arg_id=None):
 
@@ -306,11 +307,20 @@ def show_product_screen(arg_nombre, arg_descripcion, arg_cantidad, arg_precio, a
         :return: []
     """
 
-    print(f" \
-            Producto #{arg_id}: \n \
-            - Nombre: {arg_nombre}\n \
-            - Descripción: {arg_descripcion}\n \
-            - Cantidad: {arg_cantidad}\n \
-            - Precio: {arg_precio} \n \
-            - Categoría: {arg_categoria} \
-    ")
+    if arg_id is not None:
+        print(f" \
+                Producto #{arg_id}: \n \
+                - Nombre: {arg_nombre}\n \
+                - Descripción: {arg_descripcion}\n \
+                - Cantidad: {arg_cantidad}\n \
+                - Precio: {arg_precio} \n \
+                - Categoría: {arg_categoria} \
+        ")
+    else:
+        print(f" \
+                - Nombre: {arg_nombre}\n \
+                - Descripción: {arg_descripcion}\n \
+                - Cantidad: {arg_cantidad}\n \
+                - Precio: {arg_precio} \n \
+                - Categoría: {arg_categoria} \
+        ")

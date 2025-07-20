@@ -40,6 +40,7 @@ while option != "0":
                 if continue_input != "s":
                     continue_input = "n"
 
+            print(Fore.CYAN + Style.BRIGHT + "###################")
             input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "2":
@@ -53,6 +54,7 @@ while option != "0":
             if not arr_products:
                 print("No hay productos para mostrar.")
 
+            print(Fore.CYAN + Style.BRIGHT + "###################")
             input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "3":
@@ -63,10 +65,10 @@ while option != "0":
                 productID = product_findKey
 
             arr_product = products.show_product(product_findKey)
+
             if arr_product:
                 print(Fore.GREEN + Style.BRIGHT)
-                print(len(arr_product))
-                if len(arr_product) > 0:
+                if len(arr_product) > 1:
                     for product in arr_product:
                         products.show_product_screen(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                     continue_input = input("¿Desea modificar uno de los productos? (s/n): ").lower()
@@ -76,18 +78,22 @@ while option != "0":
                             products.mod_product(valitated_data[0], valitated_data[1], valitated_data[2], valitated_data[3], valitated_data[4], valitated_data[5])
                         except ValueError as e:
                             print(Fore.RED, e, "Intente de nuevo. \n")
-                else:
-                    products.show_product_screen(arr_product['nombre'], arr_product['descripcion'], arr_product['cantidad'], arr_product['precio'], arr_product['categoria'], arr_product['id'])
+                elif len(arr_product) == 1:
+                    for product in arr_product:
+                        products.show_product_screen(product['nombre'], product['descripcion'], product['cantidad'], product['precio'], product['categoria'], product['id'])
                     continue_input = input("¿Desea modificar el producto? (s/n): ").lower()
                     if continue_input == "s":
                         try:
-                            valitated_data = (products.validate_product(True))
-                            products.mod_product(valitated_data[0], valitated_data[1], valitated_data[2], valitated_data[3], valitated_data[4], valitated_data[5])
+                            valitated_data = (products.validate_product())
+                            products.mod_product(valitated_data[0], valitated_data[1], valitated_data[2], valitated_data[3], valitated_data[4], arr_product[0]['id'])
                         except ValueError as e:
                             print(Fore.RED, e, "Intente de nuevo. \n")
+                else:
+                    print(Fore.RED, "No se encontraron productos. Intente de nuevo. \n")
             else:
                 print(Fore.RED, "No se encontraron productos. Intente de nuevo. \n")
 
+            print(Fore.CYAN + Style.BRIGHT + "###################")
             input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "4":
@@ -98,6 +104,8 @@ while option != "0":
                 productID = int(productID)
 
             arr_product = products.remove_product(productID)
+
+            print(Fore.CYAN + Style.BRIGHT + "###################")
             input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "5":
@@ -115,6 +123,7 @@ while option != "0":
             if not arr_products:
                 print("No hay productos para mostrar.")
 
+            print(Fore.CYAN + Style.BRIGHT + "###################")
             input("Presione Enter para continuar...")
             os.system('cls||clear')
         case "0":
