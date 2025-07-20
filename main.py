@@ -111,7 +111,7 @@ while option != "0":
         case "5":
             print(Fore.CYAN + Style.BRIGHT + "Reporte de productos")
 
-            product_minCant = (input("Ingrese la cantidad minima de los productos que desea consultar: "))
+            product_minCant = (input("Ingrese la cantidad de stock minima de los productos que desea consultar: "))
             if product_minCant != "":
                 product_minCant = product_minCant
 

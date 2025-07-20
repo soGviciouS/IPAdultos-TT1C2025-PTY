@@ -80,7 +80,7 @@ def show_product(product_findKey):
         conn.row_factory = sqlite3.Row  # Habilita acceso a columnas por nombre
         cursor = conn.cursor()
         if product_findKey.isnumeric():
-            cursor.execute("SELECT * FROM productos WHERE id = ?", product_findKey)
+            cursor.execute("SELECT * FROM productos WHERE id = ?", (product_findKey,))
         else:
             product_findKey = f"%{product_findKey}%"
             cursor.execute("SELECT * FROM productos WHERE nombre LIKE ? OR categoria LIKE ?", (product_findKey, product_findKey))
