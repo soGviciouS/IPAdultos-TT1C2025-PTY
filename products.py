@@ -33,8 +33,7 @@ def init(seeding=False):
         conn.commit()
     except sqlite3.Error as er:
         conn.rollback()
-        print("No se pudo generar la tabla.")
-        print(f"Error: {str(er)}")
+        print(f"No se pudo generar la tabla - Error: {str(er)}")
 
     finally:
         conn.close()
