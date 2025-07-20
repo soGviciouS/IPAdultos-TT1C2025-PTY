@@ -189,8 +189,7 @@ def remove_product(productid):
     conn = database.connect()
     try:
         conn.execute("BEGIN TRANSACTION")
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM productos WHERE id = ?", (productid,))
+        conn.execute("DELETE FROM productos WHERE id = ?", (productid,))
         conn.commit()
         print("Se eliminó el producto.")
     except sqlite3.Error as er:
